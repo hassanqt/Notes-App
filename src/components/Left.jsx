@@ -26,6 +26,10 @@ const Left = ({ setTask }) => {
     }
   };
 
+let removeTasks = () => {
+  localStorage.clear();
+}
+
   return (
     <div className="basis-[50%] text-white">
       <form
@@ -62,6 +66,8 @@ const Left = ({ setTask }) => {
           value="Add Note"
           className="bg-black/50 border border-white rounded-lg active:translate-y-0.5 text-white font-medium py-2 cursor-pointer"
         />
+
+        <button onClick={removeTasks} className="bg-black/50 border border-white rounded-lg active:translate-y-0.5 text-white font-medium py-2 cursor-pointer">Remove All Notes</button>
       </form>
     </div>
   );
