@@ -7,14 +7,20 @@ const Left = ({ setTask }) => {
   const submitButton = (e) => {
     e.preventDefault();
 
-    if (heading && dets) {
+    if (heading.trim() && dets.trim()) {
       const newTask = {
-        heading: heading,
-        dets: dets,
+        heading,
+        dets,
       };
 
-      setTask((prevTask) => [...prevTask, newTask]);
-      
+      setTask((prevTask) => {
+        const updatedTasks = [...prevTask, newTask];
+
+        localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+
+        return updatedTasks;
+      });
+
       setHeading("");
       setDets("");
     }
@@ -23,7 +29,9 @@ const Left = ({ setTask }) => {
   return (
     <div className="basis-[50%] text-white">
       <form
-        onSubmit={submitButton}
+        onSubmit={(e) => {
+          submitButton(e);
+        }}
         className="h-full w-full p-10 flex flex-col gap-10"
       >
         <h1 className="text-2xl px-1 font-semibold">Add a Note</h1>
@@ -33,15 +41,21 @@ const Left = ({ setTask }) => {
           value={heading}
           placeholder="Note Title..."
           className="px-6 py-2 border-2 border-white font-medium rounded-lg outline-0"
-          onChange={(e) => setHeading(e.target.value)}
+          onChange={(e) => {
+            setHeading(e.target.value);
+          }}
         />
 
         <textarea
+          name=""
+          id=""
           className="resize-none h-full px-6 py-6 border-2 border-white font-medium rounded-lg outline-0 overflow-auto scrollbar-none"
           placeholder="Note Details..."
           value={dets}
-          onChange={(e) => setDets(e.target.value)}
-        />
+          onChange={(e) => {
+            setDets(e.target.value);
+          }}
+        ></textarea>
 
         <input
           type="submit"
