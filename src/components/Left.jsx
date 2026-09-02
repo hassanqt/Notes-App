@@ -7,15 +7,17 @@ const Left = ({ setTask }) => {
   const submitButton = (e) => {
     e.preventDefault();
 
-    const newTask = {
-      heading: heading,
-      dets: dets,
-    };
+    if (heading && dets) {
+      const newTask = {
+        heading: heading,
+        dets: dets,
+      };
 
-    setTask((prevTask) => [...prevTask, newTask]);
-
-    setHeading("");
-    setDets("");
+      setTask((prevTask) => [...prevTask, newTask]);
+      
+      setHeading("");
+      setDets("");
+    }
   };
 
   return (
